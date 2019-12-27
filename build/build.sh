@@ -1,0 +1,1 @@
+/var/lib/jenkins/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/sfdx/sfdx/bin/sfdx force:source:convert -d deployment
