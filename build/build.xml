@@ -12,7 +12,7 @@
     <condition property="sf.sessionId" value=""> <not> <isset property="sf.sessionId"/> </not> </condition>
     <condition property="sf.deployRootSrc" value=""> <not> <isset property="sf.deployRootSrc"/> </not> </condition>
 
-    <taskdef resource="com/salesforce/antlib.xml" classpath="ant-salesforce.jar" />
+    <taskdef resource="com/salesforce/antlib.xml" classpath="${basedir}/lib/ant-salesforce.jar" />
 
     <target name="deploySrc" >
         <echo message="Deploying Src..." />
