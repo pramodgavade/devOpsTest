@@ -47,6 +47,7 @@ mv force-app force-app-old
 cp -r $tempDirectory/force-app $WORKSPACE
 
 # convert to Metadata API format using sfdx
+echo "***************Salesforce CLI***************"
 sfdx --version
 sfdx force:source:convert -d deployment
 
