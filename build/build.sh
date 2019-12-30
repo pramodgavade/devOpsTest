@@ -1,1 +1,52 @@
-/var/lib/jenkins/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/sfdx/sfdx/bin/sfdx force:source:convert -d deployment
+# git commits
+echo ${GIT_COMMIT}
+echo ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
+
+# list of files modifed
+git diff --name-only ${GIT_COMMIT} ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
+
+tempDirectory="temp-dir"
+
+# loop through list of modified files
+for fileName in $(git diff --name-only ${GIT_COMMIT} ${GIT_PREVIOUS_SUCCESSFUL_COMMIT})
+	do
+    	echo $fileName
+        
+        # if file modified file is from force-app/main/default
+        if [[ $fileName == *"force-app"* ]]; then
+  			echo "processing $fileName"
+            
+            # First create the target directory, if it doesn't exist
+			mkdir -p "$tempDirectory/$(dirname $fileName)"
+            
+			# Then copy over the file
+			cp -rf "$fileName" "$tempDirectory/$fileName"
+            
+            # Then copy over the meta data file if it exists
+            metaFileName="$fileName-meta.xml"
+            if [ -f "$metaFileName" ]; then
+    			echo "$metaFileName exist"
+                cp -rf "$metaFileName" "$tempDirectory/$metaFileName"
+            fi    
+        else 
+        	echo "skipped $fileName"
+		fi
+        
+	done
+    
+# navigate to workspace
+cd $WORKSPACE
+
+# rename force-app folder
+mv force-app force-app-old
+
+# copy force-app folder from temp directory to workspace
+cp -r $tempDirectory/force-app $WORKSPACE
+
+# convert to Metadata API format using sfdx
+sfdx --version
+sfdx force:source:convert -d deployment
+
+# verify deployment folder, deployment folder is use for ANT deployment
+cd deployment
+ls
