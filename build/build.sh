@@ -1,11 +1,14 @@
 # git commits
-echo ${GIT_COMMIT}
-echo ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
+echo "GIT_COMMIT = ${GIT_COMMIT}"
+echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT = ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
 
 # list of files modifed
+echo "list of modified files"
 git diff --name-only ${GIT_COMMIT} ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
 
 tempDirectory="temp-dir"
+
+echo "building deployment folder"
 
 # loop through list of modified files
 for fileName in $(git diff --name-only ${GIT_COMMIT} ${GIT_PREVIOUS_SUCCESSFUL_COMMIT})
