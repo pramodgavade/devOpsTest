@@ -3,21 +3,21 @@ echo "GIT_COMMIT = ${GIT_COMMIT}"
 echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT = ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
 
 # list of files modifed
-echo "list of modified files"
+echo "***************list of modified files***************"
 git diff --name-only ${GIT_COMMIT} ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
 
 tempDirectory="temp-dir"
 
-echo "building deployment folder"
+echo "***************building deployment folder***************"
 
 # loop through list of modified files
 for fileName in $(git diff --name-only ${GIT_COMMIT} ${GIT_PREVIOUS_SUCCESSFUL_COMMIT})
 	do
-    	echo $fileName
+    	echo "current file : $fileName"
         
         # if file modified file is from force-app/main/default
         if [[ $fileName == *"force-app"* ]]; then
-  			echo "processing $fileName"
+  			echo "including $fileName"
             
             # First create the target directory, if it doesn't exist
 			mkdir -p "$tempDirectory/$(dirname $fileName)"
@@ -28,7 +28,7 @@ for fileName in $(git diff --name-only ${GIT_COMMIT} ${GIT_PREVIOUS_SUCCESSFUL_C
             # Then copy over the meta data file if it exists
             metaFileName="$fileName-meta.xml"
             if [ -f "$metaFileName" ]; then
-    			echo "$metaFileName exist"
+    			echo "including $metaFileName"
                 cp -rf "$metaFileName" "$tempDirectory/$metaFileName"
             fi    
         else 
