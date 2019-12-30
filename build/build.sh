@@ -8,7 +8,7 @@ git diff --name-only ${GIT_COMMIT} ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
 
 tempDirectory="temp-dir"
 
-echo "***************building deployment folder***************"
+echo "***************building force-app folder***************"
 
 # loop through list of modified files
 for fileName in $(git diff --name-only ${GIT_COMMIT} ${GIT_PREVIOUS_SUCCESSFUL_COMMIT})
@@ -52,5 +52,6 @@ sfdx --version
 sfdx force:source:convert -d deployment
 
 # verify deployment folder, deployment folder is use for ANT deployment
+echo "***************Deployment folder***************"
 cd deployment
 ls
