@@ -16,7 +16,7 @@ echo "currGitCommit = $currGitCommit"
 echo "prevGitCommit = $prevGitCommit"
 
 # if previous commit id is null
-if $1 && [ -z "$prevGitCommit"]; then
+if $1 && [ -z $prevGitCommit ]; then
     echo "cannot run incremental deployment with null prevGitCommit"
     exit 1
 fi 
