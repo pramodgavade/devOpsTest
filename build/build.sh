@@ -24,6 +24,7 @@ fi
 # if current and previous git commits are same
 if $1 && [[ $currGitCommit == $prevGitCommit ]]; then
     echo "current and previous git cimmits are same, no change to deploy"
+    exit 0
 fi   
 
 # list of files modifed
@@ -31,6 +32,7 @@ echo "***************list of modified files***************"
 git diff --name-only $currGitCommit $prevGitCommit
 
 tempDirectory="temp-dir"
+changeDetected=false
 
 echo "***************building force-app folder***************"
 
@@ -42,6 +44,7 @@ for fileName in $(git diff --name-only $currGitCommit $prevGitCommit)
         # if file modified file is from force-app/main/default
         if [[ $fileName == *"force-app"* ]]; then
             echo "including $fileName"
+            changeDetected=true    
             
             # First create the target directory, if it doesn't exist
             mkdir -p "$tempDirectory/$(dirname $fileName)"
@@ -66,6 +69,12 @@ cd $WORKSPACE
 
 # if incremental deployment
 if $1; then
+    # if no file changed
+    if ! $changeDetected; then
+        echo "no change detected"
+        exit 0
+    fi    
+
     # rename force-app folder
     mv force-app force-app-old
 
