@@ -1,6 +1,6 @@
 # git commits
-currGitCommit = ${GIT_COMMIT}
-prevGitCommit = ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
+currGitCommit=${GIT_COMMIT}
+prevGitCommit=${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
 if [ -z $2] then
     echo "empty commit id"
 else 
@@ -35,7 +35,7 @@ for fileName in $(git diff --name-only ${GIT_COMMIT} ${GIT_PREVIOUS_SUCCESSFUL_C
             cp -rf "$fileName" "$tempDirectory/$fileName"
             
             # Then copy over the meta data file if it exists
-            metaFileName = "$fileName-meta.xml"
+            metaFileName="$fileName-meta.xml"
             if [ -f "$metaFileName" ]; then
                 echo "including $metaFileName"
                 cp -rf "$metaFileName" "$tempDirectory/$metaFileName"
