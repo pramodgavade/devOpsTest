@@ -1,6 +1,10 @@
 # git commits
+echo "GIT_COMMIT = ${GIT_COMMIT}"
+echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT = ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
+
 currGitCommit=${GIT_COMMIT}
 prevGitCommit=${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
+
 if [ -z $2]; then
     echo "no commit id override"
 else 
@@ -10,9 +14,6 @@ fi
 
 echo "currGitCommit = $currGitCommit"
 echo "prevGitCommit = $prevGitCommit"
-
-echo "GIT_COMMIT = ${GIT_COMMIT}"
-echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT = ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
 
 # list of files modifed
 echo "***************list of modified files***************"
@@ -52,11 +53,15 @@ for fileName in $(git diff --name-only $currGitCommit $prevGitCommit)
 # navigate to workspace
 cd $WORKSPACE
 
-# rename force-app folder
-mv force-app force-app-old
+# if incremental deployment
+if $1; then
+    echo "incremental deployment"
+    # rename force-app folder
+    mv force-app force-app-old
 
-# copy force-app folder from temp directory to workspace
-cp -r $tempDirectory/force-app $WORKSPACE
+    # copy force-app folder from temp directory to workspace
+    cp -r $tempDirectory/force-app $WORKSPACE
+fi
 
 # convert to Metadata API format using sfdx
 echo "***************Salesforce CLI***************"
