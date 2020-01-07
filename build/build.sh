@@ -15,6 +15,17 @@ fi
 echo "currGitCommit = $currGitCommit"
 echo "prevGitCommit = $prevGitCommit"
 
+# if previous commit id is null
+if $1 && [ -z $prevGitCommit]; then
+    echo "cannot run incremental deployment with null prevGitCommit"
+    exit 1
+fi 
+
+# if current and previous git commits are same
+if $1 && [[ $currGitCommit == $prevGitCommit ]]; then
+    echo "current and previous git cimmits are same, no change to deploy"
+fi   
+
 # list of files modifed
 echo "***************list of modified files***************"
 git diff --name-only $currGitCommit $prevGitCommit
@@ -55,7 +66,6 @@ cd $WORKSPACE
 
 # if incremental deployment
 if $1; then
-    echo "incremental deployment"
     # rename force-app folder
     mv force-app force-app-old
 
