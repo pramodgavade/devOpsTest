@@ -44,6 +44,7 @@ for fileName in $(git diff --name-only $currGitCommit $prevGitCommit)
         # if file modified file is from force-app/main/default
         if [[ $fileName == *"force-app"* ]]; then
             echo "including $fileName"
+            
             changeDetected=true    
             
             # First create the target directory, if it doesn't exist
@@ -69,9 +70,10 @@ cd $WORKSPACE
 
 # if incremental deployment
 if $1; then
+    echo "***************incremental changes***************"
     # if no file changed
     if ! $changeDetected; then
-        echo "no change detected"
+        echo "no change detected, exiting"
         exit 0
     fi    
 
