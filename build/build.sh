@@ -1,13 +1,18 @@
 # git commits
 currGitCommit=${GIT_COMMIT}
 prevGitCommit=${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
-if [ -n $2]; then
-    echo "prev commit id overridden with: $2"
+if [ -z $2]; then
+    echo "no commit id override"
+else 
+    echo "prev commit id override: $2"
     prevGitCommit=$2
 fi    
 
 echo "currGitCommit = $currGitCommit"
 echo "prevGitCommit = $prevGitCommit"
+
+echo "GIT_COMMIT = ${GIT_COMMIT}"
+echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT = ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
 
 # list of files modifed
 echo "***************list of modified files***************"
