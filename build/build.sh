@@ -23,7 +23,7 @@ tempDirectory="temp-dir"
 echo "***************building force-app folder***************"
 
 # loop through list of modified files
-for fileName in $(git diff --name-only ${GIT_COMMIT} ${GIT_PREVIOUS_SUCCESSFUL_COMMIT})
+for fileName in $(git diff --name-only $currGitCommit $prevGitCommit)
     do
         echo "current file : $fileName"
         
