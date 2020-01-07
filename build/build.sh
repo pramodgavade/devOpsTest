@@ -18,7 +18,7 @@ echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT = ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
 echo "***************list of modified files***************"
 git diff --name-only ${GIT_COMMIT} ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
 
-tempDirectory = "temp-dir"
+tempDirectory="temp-dir"
 
 echo "***************building force-app folder***************"
 
