@@ -16,7 +16,7 @@ echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT = ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
 
 # list of files modifed
 echo "***************list of modified files***************"
-git diff --name-only ${GIT_COMMIT} ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
+git diff --name-only $currGitCommit $prevGitCommit
 
 tempDirectory="temp-dir"
 
