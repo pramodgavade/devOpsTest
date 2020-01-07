@@ -1,8 +1,10 @@
 # git commits
 currGitCommit=${GIT_COMMIT}
 prevGitCommit=${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
-if [ -z $2] then
+if [ -z $2]; then
     echo "empty commit id"
+else 
+    echo "commit id: $2"
 fi    
 
 
