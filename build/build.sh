@@ -76,7 +76,7 @@ if $1; then
     echo "***************incremental changes***************"
     echo "changeDetected = $changeDetected"
     # if no file changed
-    if [! -d "$tempDirectory"]; then
+    if [ ! -d "$tempDirectory" ]; then
         echo "no change detected, exiting"
         exit 0
     fi    
