@@ -37,18 +37,20 @@ changeDetected=false
 echo "***************building force-app folder***************"
 
 # loop through list of modified files
-for fileName in $(git diff --name-only -z $currGitCommit $prevGitCommit)
-    do
-        echo "current file : $fileName"
+git diff -z --name-only $currGitCommit $prevGitCommit|
+while read -d $'\0' fileName
+do
+    echo "current file : $fileName"
         
         # if file modified file is from force-app/main/default
         if [[ $fileName == *"force-app"* ]]; then
             echo "including $fileName"
             
-            changeDetected=true    
+            changeDetected=true           
             
             # First create the target directory, if it doesn't exist
-            mkdir -p "$tempDirectory/$(dirname $fileName)"
+            directoryName=$(dirname "$fileName")
+            mkdir -p "$tempDirectory/$directoryName"
             
             # Then copy over the file
             cp -rf "$fileName" "$tempDirectory/$fileName"
@@ -62,8 +64,7 @@ for fileName in $(git diff --name-only -z $currGitCommit $prevGitCommit)
         else 
             echo "skipped $fileName"
         fi
-        
-    done
+done
     
 # navigate to workspace
 cd $WORKSPACE
