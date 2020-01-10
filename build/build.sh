@@ -41,6 +41,7 @@ git diff -z --name-only $currGitCommit $prevGitCommit|
 while read -d $'\0' fileName
 do
     echo "current file : $fileName"
+    echo "changeDetected = $changeDetected"
         
         # if file modified file is from force-app/main/default
         if [[ $fileName == *"force-app"* ]]; then
