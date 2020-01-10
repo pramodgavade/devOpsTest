@@ -69,10 +69,12 @@ done
     
 # navigate to workspace
 cd $WORKSPACE
+ls
 
 # if incremental deployment
 if $1; then
     echo "***************incremental changes***************"
+    echo "changeDetected = $changeDetected"
     # if no file changed
     if ! $changeDetected; then
         echo "no change detected, exiting"
