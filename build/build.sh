@@ -5,7 +5,7 @@ echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT = ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
 currGitCommit=${GIT_COMMIT}
 prevGitCommit=${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
 
-if [ -z $2]; then
+if [ -z $2 ]; then
     echo "no commit id override"
 else 
     echo "prev commit id override: $2"
@@ -37,7 +37,7 @@ changeDetected=false
 echo "***************building force-app folder***************"
 
 # loop through list of modified files
-for fileName in $(git diff --name-only $currGitCommit $prevGitCommit)
+for fileName in $(git diff --name-only -z $currGitCommit $prevGitCommit)
     do
         echo "current file : $fileName"
         
